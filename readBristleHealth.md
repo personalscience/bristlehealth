@@ -15,7 +15,7 @@ The data is kept in a format with columns for `genus`, `species`, and
 ``` r
 library(tidyverse)
 
-raw_bristle_data <- readxl::read_xlsx(file.path("BristleHealthRaw.xlsx"))
+raw_bristle_data <- readxl::read_xlsx(file.path("data/BristleHealthRaw.xlsx"))
 
 raw_bristle_data %>% transmute(genus,species,abundance=`relative abundance`/100) %>% 
   group_by(genus) %>% summarize(sum=sum(abundance)) %>%
