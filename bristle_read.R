@@ -5,7 +5,7 @@
 #' @param filepath path to XLSX file
 read_bristle_table <- function(filepath=file.path("data","BristleHealthRaw.xlsx")) {
 
-  raw_bristle_data <- readxl::read_xlsx(file.path("data/BristleHealthRaw.xlsx"))
+  raw_bristle_data <- readxl::read_xlsx(filepath)
 
   r <- raw_bristle_data %>%  transmute(genus,species,abundance=`relative abundance`/100)
 

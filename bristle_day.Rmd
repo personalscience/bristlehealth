@@ -1,0 +1,52 @@
+---
+title: "Morning vs Night"
+author: "Richard Sprague"
+date: "8/25/2022"
+output:
+  github_document: default
+  html_document: default
+---
+
+What happens to my mouth microbiome throughout the day?
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+if(!require("treemap")) install.packages("treemap")
+library(tidyverse)
+source("bristle_read.R")
+
+```
+
+## Morning
+
+This sample was collected a few minutes after waking up. I usually wear an orthodontic retainer, so this is my oral microbiome *with* the retainer.
+
+```{r}
+
+am_sample <- read_bristle_table(filepath=file.path("data", "Bristle-2022-08-02-AM.xlsx"))
+
+
+am_sample %>% 
+treemap::treemap(dtf=., index = c("genus","species"),
+                 vSize="abundance",
+                 title = "My Mouth Microbes (Morning)")
+
+```
+
+
+
+## Evening
+
+
+I went the rest of the day as normal. This sample was collected at 10pm, about three hours after my last meal, and before inserting the retainer or brushing my teeth.
+
+```{r}
+
+pm_sample <- read_bristle_table(filepath=file.path("data", "Bristle-2022-08-02-PM.xlsx"))
+
+pm_sample %>% 
+treemap::treemap(dtf=., index = c("genus","species"),
+                 vSize="abundance",
+                 title = "My Mouth Microbes (Evening)")
+```
+
