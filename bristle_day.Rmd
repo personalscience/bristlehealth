@@ -17,7 +17,6 @@ source("bristle_read.R")
 
 ```
 
-
 ## Baseline
 
 This sample was taken in June on a random, typical morning first thing after waking. 
