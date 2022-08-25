@@ -63,3 +63,46 @@ treemap::treemap(dtf=., index = c("genus","species"),
 ```
 
 ![](bristle_day_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
+## Animated Version
+
+``` r
+library(gganimate)
+
+day_samples <- combine_bristle_table(am_sample,pm_sample,"am","pm")
+s1 <- day_samples %>% filter(label=="am") %>% treemap_of_sample() %>% mutate(label = "am")
+```
+
+![](bristle_day_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
+``` r
+s2 <- day_samples %>% filter(label=="pm") %>% treemap_of_sample() %>% mutate(label = "pm")
+```
+
+![](bristle_day_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
+
+``` r
+s <- rbind(s1,s2)
+
+sanim <- s %>%  group_by(label) %>%
+  ggplot(aes(xmin = x0, ymin = y0, xmax = x1, ymax = y1, mysample=label)) +
+  # add fill and borders for groups and subgroups
+  geom_rect(aes(fill = color, size = primary_group),
+            show.legend = FALSE, color = "black", alpha = .3) +
+  scale_fill_identity() +
+  # set thicker lines for group borders
+  scale_size(range = range(s$primary_group)) +
+  ggfittext::geom_fit_text(aes(label=genus), min.size = 1) +
+    scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +  
+  labs(title = "Mouth Microbiome Morning/Night",
+       # subtitle = "Number of days: {filter(.data, my_tm == current_frame) %>% pull(sample) %>% .[[1]]}") +
+       subtitle = "Time: {closest_state}") +
+  
+   gganimate::transition_states(label) #, state_length = .2, transition_length = .40) 
+  
+
+gganimate::animate(plot=sanim, end_pause = 5, detail = 20, fps=12, duration = 3)
+```
+
+![](bristle_day_files/figure-gfm/unnamed-chunk-4-1.gif)<!-- -->

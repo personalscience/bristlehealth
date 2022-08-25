@@ -39,3 +39,23 @@ combine_bristle_table <- function(table1, table2, label1, label2) {
 
 }
 
+#' @description return a a dataframe version of this treemap
+# inspired by https://yjunechoe.github.io/posts/2020-06-30-treemap-with-ggplot/
+treemap_of_sample <- function(sample)
+{
+  tm <- sample %>%
+    treemap::treemap(dtf=., index = c("genus"),
+                     vSize="abundance")
+  tm_ <- tm[["tm"]] %>%
+    # # calculate end coordinates with height and width
+    mutate(x1 = x0 + w,
+           y1 = y0 + h) %>%
+    # get center coordinates for labels
+    mutate(x = (x0+x1)/2,
+           y = (y0+y1)/2) %>%
+    mutate(primary_group = 1.2)
+
+  return(tm_)
+}
+
+
