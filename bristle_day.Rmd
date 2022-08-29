@@ -75,13 +75,17 @@ treemap::treemap(dtf=., index = c("genus","species"),
 
 ## Animated Version
 
-```{r}
+```{r dayanimation_prep}
 library(gganimate)
 
 day_samples <- combine_bristle_table(am_sample,pm_sample,"am","pm")
 s1 <- day_samples %>% filter(label=="am") %>% treemap_of_sample() %>% mutate(label = "am")
 s2 <- day_samples %>% filter(label=="pm") %>% treemap_of_sample() %>% mutate(label = "pm")
 s <- rbind(s1,s2)
+```
+
+
+```{r dayanimation}
 
 sanim <- s %>%  group_by(label) %>%
   ggplot(aes(xmin = x0, ymin = y0, xmax = x1, ymax = y1, mysample=label)) +

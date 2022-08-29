@@ -71,19 +71,16 @@ library(gganimate)
 
 day_samples <- combine_bristle_table(am_sample,pm_sample,"am","pm")
 s1 <- day_samples %>% filter(label=="am") %>% treemap_of_sample() %>% mutate(label = "am")
-```
-
-![](bristle_day_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
-
-``` r
 s2 <- day_samples %>% filter(label=="pm") %>% treemap_of_sample() %>% mutate(label = "pm")
 ```
 
-![](bristle_day_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
+![](bristle_day_files/figure-gfm/dayanimation_prep-1.png)<!-- -->
 
 ``` r
 s <- rbind(s1,s2)
+```
 
+``` r
 sanim <- s %>%  group_by(label) %>%
   ggplot(aes(xmin = x0, ymin = y0, xmax = x1, ymax = y1, mysample=label)) +
   # add fill and borders for groups and subgroups
@@ -105,4 +102,4 @@ sanim <- s %>%  group_by(label) %>%
 gganimate::animate(plot=sanim, end_pause = 5, detail = 20, fps=12, duration = 3)
 ```
 
-![](bristle_day_files/figure-gfm/unnamed-chunk-4-1.gif)<!-- -->
+![](bristle_day_files/figure-gfm/dayanimation-1.gif)<!-- -->

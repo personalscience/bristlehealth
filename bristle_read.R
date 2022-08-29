@@ -45,7 +45,8 @@ treemap_of_sample <- function(sample)
 {
   tm <- sample %>%
     treemap::treemap(dtf=., index = c("genus"),
-                     vSize="abundance")
+                     vSize="abundance",
+                     draw=FALSE)
   tm_ <- tm[["tm"]] %>%
     # # calculate end coordinates with height and width
     mutate(x1 = x0 + w,
