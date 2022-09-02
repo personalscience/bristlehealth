@@ -6,6 +6,8 @@ View sample PDF reports [here](https://github.com/personalscience/bristlehealth/
 
 ## How to Study Bristle Raw Data
 
+Generate a [Phyloseq-compatible version of your raw data](./bristle_phyloseq.md)
+
 See how to study [raw reports](https://github.com/personalscience/bristlehealth/blob/main/readBristleHealth.md)
 
 and a comparison between [two samples taken the same day](https://github.com/personalscience/bristlehealth/blob/main/bristle_day.md).
