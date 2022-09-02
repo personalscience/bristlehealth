@@ -2,13 +2,13 @@
 
 ## Sample Reports
 
-View sample PDF reports [here](https://github.com/Neodotlife/bristlehealth/tree/main/data)
+View sample PDF reports [here](https://github.com/personalscience/bristlehealth/tree/main/data)
 
 ## How to Study Bristle Raw Data
 
-See how to study [raw reports](https://github.com/Neodotlife/bristlehealth/blob/main/readBristleHealth.md)
+See how to study [raw reports](https://github.com/personalscience/bristlehealth/blob/main/readBristleHealth.md)
 
-and a comparison between [two samples taken the same day](https://github.com/Neodotlife/bristlehealth/blob/main/bristle_day.md).
+and a comparison between [two samples taken the same day](https://github.com/personalscience/bristlehealth/blob/main/bristle_day.md).
 
 
 ## Animating Reports
