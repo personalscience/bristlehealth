@@ -1,7 +1,7 @@
 Read Bristle Health Raw Data
 ================
 Richard Sprague
-7/14/2022
+9/2/2022
 
 The oral microbiome testing company, Bristle Health, gives me a web page
 table of all the microbes they found in my mouth. Can I turn that web
@@ -13,16 +13,29 @@ The data is kept in a format with columns for `genus`, `species`, and
 `relative abundance`. That’s easy to read straight from Excel format.
 
 ``` r
+if(!require("bristler")) devtools::install_github("personalscience/bristler")
+```
+
+    ## Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
+    ## logical.return = TRUE, : there is no package called 'bristler'
+
+    ## 
+    ## * checking for file ‘/private/var/folders/9f/ztzrvfdj0z9btdnvr7_zmm3m0000gn/T/Rtmpe3qrPe/remotes3ff47720f39/personalscience-bristler-8d751fb/DESCRIPTION’ ... OK
+    ## * preparing ‘bristler’:
+    ## * checking DESCRIPTION meta-information ... OK
+    ## * checking for LF line-endings in source and make files and shell scripts
+    ## * checking for empty or unneeded directories
+    ## * building ‘bristler_0.1.1.tar.gz’
+
+``` r
 library(tidyverse)
 
-raw_bristle_data <- readxl::read_xlsx(file.path("data/BristleHealthRaw.xlsx"))
 
-raw_bristle_data %>% transmute(genus,species,abundance=`relative abundance`/100) %>% 
-  group_by(genus) %>% summarize(sum=sum(abundance)) %>%
-  arrange(desc(sum)) %>% slice_max(order_by=sum, prop=.5) %>% # summarize(total=sum(sum))# %>% 
-  ggplot(aes(x=reorder(genus,-sum), y=sum)) + geom_col() + 
-  theme(axis.text.x=element_text(angle = 90, vjust = 0.5)) +
-  labs(y="Abundance (%)", x = "Genus", title = "Bristle Health Result")
+raw_bristle_data <-bristler::read_bristle_table(filepath=file.path("data/BristleHealthRaw.xlsx"))
+
+raw_bristle_data %>%   group_by(genus) %>% summarize(sum=sum(abundance)) %>%
+    arrange(desc(sum)) %>% slice_max(order_by=sum, prop=.5) %>% 
+bristler::plot_bristle_freq()
 ```
 
 ![](readBristleHealth_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
@@ -32,7 +45,7 @@ raw_bristle_data %>% transmute(genus,species,abundance=`relative abundance`/100)
 ``` r
 if(!require("treemap")) install.packages("treemap")
 
-raw_bristle_data %>% transmute(genus,species,abundance=`relative abundance`/100) %>% 
+raw_bristle_data %>% 
 treemap::treemap(dtf=., index = c("genus","species"),
                  vSize="abundance",
                  title = "My Mouth Microbes")

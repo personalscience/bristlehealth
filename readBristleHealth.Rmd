@@ -1,7 +1,7 @@
 ---
 title: "Read Bristle Health Raw Data"
 author: "Richard Sprague"
-date: "7/14/2022"
+date: "9/2/2022"
 output:
   github_document: default
   html_document: default
@@ -14,14 +14,15 @@ The oral microbiome testing company, Bristle Health, gives me a web page table o
 The data is kept in a format with columns for `genus`, `species`, and `relative abundance`. That's easy to read straight from Excel format.
 
 ```{r, message = FALSE}
+if(!require("bristler")) devtools::install_github("personalscience/bristler")
 library(tidyverse)
-source("bristle_read.R")
 
-raw_bristle_data <-read_bristle_table(filepath=file.path("data/BristleHealthRaw.xlsx"))
+
+raw_bristle_data <-bristler::read_bristle_table(filepath=file.path("data/BristleHealthRaw.xlsx"))
 
 raw_bristle_data %>%   group_by(genus) %>% summarize(sum=sum(abundance)) %>%
     arrange(desc(sum)) %>% slice_max(order_by=sum, prop=.5) %>% 
-plot_bristle_freq()
+bristler::plot_bristle_freq()
   
 ```
 
