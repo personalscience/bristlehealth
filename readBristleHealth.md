@@ -20,12 +20,12 @@ if(!require("bristler")) devtools::install_github("personalscience/bristler")
     ## logical.return = TRUE, : there is no package called 'bristler'
 
     ## 
-    ## * checking for file ‘/private/var/folders/9f/ztzrvfdj0z9btdnvr7_zmm3m0000gn/T/Rtmpe3qrPe/remotes3ff47720f39/personalscience-bristler-8d751fb/DESCRIPTION’ ... OK
+    ## * checking for file ‘/private/var/folders/9f/ztzrvfdj0z9btdnvr7_zmm3m0000gn/T/RtmpMt8YIT/remotes69f53ff54a86/personalscience-bristler-9c50336/DESCRIPTION’ ... OK
     ## * preparing ‘bristler’:
     ## * checking DESCRIPTION meta-information ... OK
     ## * checking for LF line-endings in source and make files and shell scripts
     ## * checking for empty or unneeded directories
-    ## * building ‘bristler_0.1.1.tar.gz’
+    ## * building ‘bristler_0.1.2.tar.gz’
 
 ``` r
 library(tidyverse)
@@ -33,9 +33,7 @@ library(tidyverse)
 
 raw_bristle_data <-bristler::read_bristle_table(filepath=file.path("data/BristleHealthRaw.xlsx"))
 
-raw_bristle_data %>%   group_by(genus) %>% summarize(sum=sum(abundance)) %>%
-    arrange(desc(sum)) %>% slice_max(order_by=sum, prop=.5) %>% 
-bristler::plot_bristle_freq()
+raw_bristle_data %>% bristler::plot_bristle_freq()
 ```
 
 ![](readBristleHealth_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
