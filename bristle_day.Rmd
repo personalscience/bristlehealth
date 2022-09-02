@@ -1,7 +1,7 @@
 ---
 title: "Morning vs Night"
 author: "Richard Sprague"
-date: "8/25/2022"
+date: "9/2/2022"
 output:
   github_document: default
   html_document: default
@@ -11,9 +11,8 @@ What happens to my mouth microbiome throughout the day?
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-if(!require("treemap")) install.packages("treemap")
+if(!require("bristler")) devtools::install_github("personalscience/bristler")
 library(tidyverse)
-source("bristle_read.R")
 
 ```
 
@@ -22,7 +21,7 @@ source("bristle_read.R")
 This sample was taken in June on a random, typical morning first thing after waking. 
 
 ```{r}
-baseline_sample <- read_bristle_table(filepath=file.path("data", "BristleHealthRaw.xlsx"))
+baseline_sample <- bristler::read_bristle_table(filepath=file.path("data", "BristleHealthRaw.xlsx"))
 
 baseline_sample %>% treemap::treemap(dtf=., index = c("genus","species"),
                  vSize="abundance",
@@ -39,7 +38,7 @@ This sample was collected a few minutes after waking up. I usually wear an ortho
 
 ```{r}
 
-am_sample <- read_bristle_table(filepath=file.path("data", "Bristle-2022-08-02-AM.xlsx"))
+am_sample <- bristler::read_bristle_table(filepath=file.path("data", "Bristle-2022-08-02-AM.xlsx"))
 
 
 am_sample %>% 
@@ -61,7 +60,7 @@ I went the rest of the day as normal. This sample was collected at 10pm, about t
 
 ```{r}
 
-pm_sample <- read_bristle_table(filepath=file.path("data", "Bristle-2022-08-02-PM.xlsx"))
+pm_sample <- bristler::read_bristle_table(filepath=file.path("data", "Bristle-2022-08-02-PM.xlsx"))
 
 pm_sample %>% 
 treemap::treemap(dtf=., index = c("genus","species"),
@@ -78,9 +77,9 @@ treemap::treemap(dtf=., index = c("genus","species"),
 ```{r dayanimation_prep}
 library(gganimate)
 
-day_samples <- combine_bristle_table(am_sample,pm_sample,"am","pm")
-s1 <- day_samples %>% filter(label=="am") %>% treemap_of_sample() %>% mutate(label = "am")
-s2 <- day_samples %>% filter(label=="pm") %>% treemap_of_sample() %>% mutate(label = "pm")
+day_samples <- bristler::combine_bristle_table(am_sample,pm_sample,"am","pm")
+s1 <- day_samples %>% filter(label=="am") %>% bristler::treemap_of_sample() %>% mutate(label = "am")
+s2 <- day_samples %>% filter(label=="pm") %>% bristler::treemap_of_sample() %>% mutate(label = "pm")
 s <- rbind(s1,s2)
 ```
 

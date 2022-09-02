@@ -1,7 +1,7 @@
 Morning vs Night
 ================
 Richard Sprague
-8/25/2022
+9/2/2022
 
 What happens to my mouth microbiome throughout the day?
 
@@ -11,7 +11,7 @@ This sample was taken in June on a random, typical morning first thing
 after waking.
 
 ``` r
-baseline_sample <- read_bristle_table(filepath=file.path("data", "BristleHealthRaw.xlsx"))
+baseline_sample <- bristler::read_bristle_table(filepath=file.path("data", "BristleHealthRaw.xlsx"))
 
 baseline_sample %>% treemap::treemap(dtf=., index = c("genus","species"),
                  vSize="abundance",
@@ -30,7 +30,7 @@ an orthodontic retainer, so this is my oral microbiome *with* the
 retainer.
 
 ``` r
-am_sample <- read_bristle_table(filepath=file.path("data", "Bristle-2022-08-02-AM.xlsx"))
+am_sample <- bristler::read_bristle_table(filepath=file.path("data", "Bristle-2022-08-02-AM.xlsx"))
 
 
 am_sample %>% 
@@ -51,7 +51,7 @@ about three hours after my last meal, and before inserting the retainer
 or brushing my teeth.
 
 ``` r
-pm_sample <- read_bristle_table(filepath=file.path("data", "Bristle-2022-08-02-PM.xlsx"))
+pm_sample <- bristler::read_bristle_table(filepath=file.path("data", "Bristle-2022-08-02-PM.xlsx"))
 
 pm_sample %>% 
 treemap::treemap(dtf=., index = c("genus","species"),
@@ -69,9 +69,9 @@ treemap::treemap(dtf=., index = c("genus","species"),
 ``` r
 library(gganimate)
 
-day_samples <- combine_bristle_table(am_sample,pm_sample,"am","pm")
-s1 <- day_samples %>% filter(label=="am") %>% treemap_of_sample() %>% mutate(label = "am")
-s2 <- day_samples %>% filter(label=="pm") %>% treemap_of_sample() %>% mutate(label = "pm")
+day_samples <- bristler::combine_bristle_table(am_sample,pm_sample,"am","pm")
+s1 <- day_samples %>% filter(label=="am") %>% bristler::treemap_of_sample() %>% mutate(label = "am")
+s2 <- day_samples %>% filter(label=="pm") %>% bristler::treemap_of_sample() %>% mutate(label = "pm")
 ```
 
 ![](bristle_day_files/figure-gfm/dayanimation_prep-1.png)<!-- -->
