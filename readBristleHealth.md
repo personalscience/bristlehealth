@@ -1,16 +1,12 @@
-Read Bristle Health Raw Data
-================
-Richard Sprague
-9/2/2022
+# Read Bristle Health Raw Data
 
-The oral microbiome testing company, Bristle Health, gives me a web page
-table of all the microbes they found in my mouth. Can I turn that web
-page table into a more useful R dataframe?
+Richard Sprague 9/2/2022
+
+The oral microbiome testing company, Bristle Health, gives me a web page table of all the microbes they found in my mouth. Can I turn that web page table into a more useful R dataframe?
 
 ## Read the Data
 
-The data is kept in a format with columns for `genus`, `species`, and
-`relative abundance`. That’s easy to read straight from Excel format.
+The data is kept in a format with columns for `genus`, `species`, and `relative abundance`. That's easy to read straight from Excel format.
 
 ``` r
 if(!require("bristler")) devtools::install_github("personalscience/bristler")
@@ -53,8 +49,7 @@ treemap::treemap(dtf=., index = c("genus","species"),
 
 ## 16S Samples
 
-Make a dataframe of all uBiome samples (genus level only). Requires
-[some special packages](https://github.com/richardsprague/actino).
+Make a dataframe of all uBiome samples (genus level only). Requires [some special packages](https://github.com/richardsprague/actino).
 
 ``` r
 library(actino)

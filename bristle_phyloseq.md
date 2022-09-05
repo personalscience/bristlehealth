@@ -12,27 +12,22 @@ bristle_data <-bristler::read_bristle_table(filepath=file.path("data/BristleHeal
 ## Create a mapfile
 
 Experiment dataframe with the following exact column names (additional
-columns are okay but will be ignored): “ssr”: sequencing revision
-(e.g. 42578). Your column probably repeats many SSRs. “tax_name”:
-(e.g. “Bifidobacterium”). “count” : reads for that taxa at that SSR
-(e.g. 2137)
+columns are okay but will be ignored):
 
-Mapping file: a dataframe that contains: “ssr”: exact same SSRs as
-experiment dataframe above attributes columns: as many as you like.
-(e.g. “yogurteater”, “geo”, “kefireater”, “gender”)
+- “ssr”: sequencing revision, aka sample ID number (e.g. 42578). Your
+  column probably repeats many SSRs.
+
+- “tax_name”: (e.g. “Bifidobacterium”).
+
+- “count” : reads for that taxa at that SSR (e.g. 2137)
+
+- Mapping file: a dataframe that contains: “ssr”: exact same SSRs as
+  experiment dataframe above attributes columns: as many as you like.
+  (e.g. “yogurteater”, “geo”, “kefireater”, “gender”)
 
 ``` r
 bristle_data$ssr <- 1234
 mapfile <- tibble(ssr=1234,label="baseline")
-```
-
-## Create an experiment file
-
-``` r
-bristle_experiment <- bristle_data %>% transmute(ssr,
-                                                 tax_name = genus,
-                                                 count = abundance * 10000,
-                                                 tax_rank = "genus")
 ```
 
 ## Make the Phyloseq object
@@ -45,7 +40,7 @@ e.ps <- bristler::phyloseqize(bristle_data, mapfile = mapfile)
 plot_bar(e.ps, fill = "Genus")
 ```
 
-![](bristle_phyloseq_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](bristle_phyloseq_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 ``` r
 plot_heatmap(e.ps, method = "CCA", distance = "none",fill = "Genus")
@@ -57,7 +52,7 @@ plot_heatmap(e.ps, method = "CCA", distance = "none",fill = "Genus")
     ## Warning in plot_heatmap(e.ps, method = "CCA", distance = "none", fill = "Genus"): Attempt to access ordination coordinates for feature/species/taxa/OTU ordering failed.
     ## Using default feature/species/taxa/OTU ordering.
 
-![](bristle_phyloseq_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+![](bristle_phyloseq_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
 
 Now attempt other Phyloseq operations.
 
@@ -86,4 +81,4 @@ plot_richness(e.ps, measures = c("InvSimpson","Shannon"))
     ## 
     ## We recommended that you find the un-trimmed data and retry.
 
-![](bristle_phyloseq_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](bristle_phyloseq_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
