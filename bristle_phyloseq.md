@@ -1,7 +1,7 @@
 Bristle and Phyloseq
 ================
 Richard Sprague
-2022-09-02
+2022-09-05
 
 ## Read Bristle sample data
 

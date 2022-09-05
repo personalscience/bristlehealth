@@ -5,7 +5,7 @@ if(!require("ggfittext")) install.packages("ggfittext")
 
 
 
-load("mouth_microbes")
+load("mouth_microbes.rda")
 ganim <- all_tm %>% filter(sample %in% 1:50) %>%
   group_by(sample) %>%
   ggplot(aes(xmin = x0, ymin = y0, xmax = x1, ymax = y1, mysample=sample)) +

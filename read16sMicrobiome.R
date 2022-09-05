@@ -1,5 +1,7 @@
 
-
+## This messy script prepares a data structure, "mouth_microbes.rda" that can later be read
+## useful for animate16sMouth.R script that will animate a bunch of uBiome formatted data
+## You should only need to run this script once to generate the RDA.
 
 
 library(actino)
@@ -75,7 +77,7 @@ for (i in 1:87) {
   all_tm <- rbind(all_tm, treemap_of_sample(i) %>% mutate(sample = i))
 }
 
-save(all_tm, ub_mouth_genus_df, file="mouth_microbes")
+save(all_tm, ub_mouth_genus_df, file="mouth_microbes.rda")
 
 plot_sample_number <- function(sample_number=1) {
   tm <- treemap_of_sample(sample_number)

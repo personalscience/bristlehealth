@@ -10,7 +10,6 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
-library(actino)
 library(phyloseq)
 library(psmr)  # use library function instead.
 if(!require("bristler")) devtools::install_github("personalscience/bristler")
