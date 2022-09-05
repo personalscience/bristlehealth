@@ -38,20 +38,7 @@ bristle_experiment <- bristle_data %>% transmute(ssr,
 ## Make the Phyloseq object
 
 ``` r
-e <- bristle_experiment %>% select(tax_name, 1, count) %>% pivot_wider(names_from = ssr, values_from = count, values_fn = {sum})
-ssrs <- unique(bristle_experiment$ssr)
-e.map <- mapfile[match(ssrs,mapfile$ssr),]
-#row.names(e.map)<-e.map$ssr
-qiime_tax_names<-sapply(e[1],function (x) paste("g__",x,sep=""))
-e.taxtable<-build_tax_table(lapply(qiime_tax_names,parse_taxonomy_qiime))
-dimnames(e.taxtable)[[1]]<-qiime_tax_names
-e.matrix<-as.matrix(e[,2:ncol(e)])
- colnames(e.matrix)<-ssrs
-  rownames(e.matrix)<-qiime_tax_names
-
-  e.ps <-phyloseq(otu_table(e.matrix,taxa_are_rows=TRUE),
-                  #sample_data(e.map)) #,
-                  tax_table(e.taxtable))
+e.ps <- bristler::phyloseqize(bristle_data, mapfile = mapfile)
 ```
 
 ``` r
