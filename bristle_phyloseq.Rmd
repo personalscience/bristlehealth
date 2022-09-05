@@ -13,9 +13,20 @@ library(tidyverse)
 library(phyloseq)
 library(psmr)  # use library function instead.
 if(!require("bristler")) devtools::install_github("personalscience/bristler")
+if(!require("psmr")) devtools::install_github("personalscience/psmr")
+
 
 
 ```
+
+
+## Introduction
+
+Phyloseq is an open source microbiome manipulation package in the BioConductor toolkit for R^[Read this beginner's guide: http://joey711.github.io/phyloseq-demo/phyloseq-demo.html]. Introduced in 2013^[McMurdie, Paul J., and Susan Holmes. “Phyloseq: An R Package for Reproducible Interactive Analysis and Graphics of Microbiome Census Data.” Edited by Michael Watson. PLoS ONE 8, no. 4 (April 22, 2013): e61217. [doi:10.1371/journal.pone.0061217](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0061217).], it turns your microbiome data into an object-oriented representation that can be easily imported or exported to other common formats, and it supports many analysis techniques including calibration, filtering, subsetting, agglomeration, multi-table comparisons, diversity analysis, parallelized Fast UniFrac, ordination methods, and production of publication-quality graphics.
+
+The combination of R, with RStudio, and Phyloseq is a powerful environment for microbiome investigation. Providing easy, interactive access to nearly every state-of-the-art algorithm in statistics, machine and deep learning, it can let you study your data quickly and iteratively, with exceptional plotting features that set the standard for publication-quality work.
+
+This example uses the package `bristler` to read Bristle raw data and convert it to a Phyloseq object. Once the data is encapsulated in Phyloseq, you have access to hundreds of additional microbiome data manipulation and analysis functions.
 
 ## Read Bristle sample data
 
@@ -49,20 +60,18 @@ mapfile <- tibble(ssr=1234,label="baseline")
 ```{r}
 
 e.ps <- bristler::phyloseqize(bristle_data, mapfile = mapfile)
-phyloseq::sample_names(e.ps) <- "baseline"
-phyloseq::sample_names(map.data.ps) <- map.data$SSR
 
 ```
 
-```{r}
+```{r, warning = FALSE}
 plot_bar(e.ps, fill = "Genus")
 plot_heatmap(e.ps, method = "CCA", distance = "none",fill = "Genus")
 
 ```
 
-Now attempt other Phyloseq operations.
+Now try other Phyloseq operations. Here's how to calculate diversity. You can choose any of the Phyloseq diversity metrics and plot the results.
 
-```{r}
+```{r, warning = FALSE}
 
 estimate_richness(e.ps, measures = c("InvSimpson","Shannon"))
 
@@ -80,7 +89,7 @@ Create more Bristle objects and then merge them with `merge_phyloseq()`
 am_sample <- bristler::read_bristle_table(filepath=file.path("data", "Bristle-2022-08-02-AM.xlsx"))
 am_sample$ssr <- 1235
 am_mapfile <- tibble(ssr=1235,label="AM")
-phyloseq::sample_names(am.ps) <- "AM"
+
 am.ps <- bristler::phyloseqize(am_sample,am_mapfile)
 
 
@@ -90,20 +99,38 @@ pm_sample$ssr <- 1236
 pm_mapfile <- tibble(ssr=1236,label="PM")
 
 pm.ps <- bristler::phyloseqize(pm_sample, pm_mapfile)
-phyloseq::sample_names(pm.ps) <- "PM"
 
 all_samples <- phyloseq::merge_phyloseq(e.ps, am.ps, pm.ps)
 
 ```
 
 
-## NMDS
-```{r}
+## Special Taxa
+
+Here are taxa that were found in the morning but not in the evening:
+
+```{r, warning = FALSE }
+
+psmr::unique_taxa(am.ps, pm.ps) %>% 
+  knitr::kable(row.names=FALSE,
+               digits = 2,
+               col.names = c("Abundance (%)", "Tax Name"))
+```
+
+
+## Ordination
+
+This is a statistical method that can help identify unusual aspects of the data. It is especially useful for generating plots that show similarity among items. 
+
+```{r, warning=FALSE}
 
 all_samples.ord <- phyloseq::ordinate(all_samples, method = "PCoA")
 phyloseq::plot_ordination(all_samples, all_samples.ord,
                           title = "PCoA for All Samples",
-                          label = "")
+                          color = "label",
+                          label = NULL) +
+    geom_point(size = 5)  +  # add alpha=0.4 if you like
+    geom_text(aes(label=label),size = 4, position = position_jitter()) #hjust = "left", vjust = "inward" )
 
 
 ```
