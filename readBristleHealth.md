@@ -1,29 +1,19 @@
-# Read Bristle Health Raw Data
+Read Bristle Health Raw Data
+================
+Richard Sprague
+9/20/2022
 
-Richard Sprague 9/2/2022
-
-The oral microbiome testing company, Bristle Health, gives me a web page table of all the microbes they found in my mouth. Can I turn that web page table into a more useful R dataframe?
+The oral microbiome testing company, Bristle Health, gives me a web page
+table of all the microbes they found in my mouth. Can I turn that web
+page table into a more useful R dataframe?
 
 ## Read the Data
 
-The data is kept in a format with columns for `genus`, `species`, and `relative abundance`. That's easy to read straight from Excel format.
+The data is kept in a format with columns for `genus`, `species`, and
+`relative abundance`. That’s easy to read straight from Excel format.
 
 ``` r
 if(!require("bristler")) devtools::install_github("personalscience/bristler")
-```
-
-    ## Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
-    ## logical.return = TRUE, : there is no package called 'bristler'
-
-    ## 
-    ## * checking for file ‘/private/var/folders/9f/ztzrvfdj0z9btdnvr7_zmm3m0000gn/T/RtmpMt8YIT/remotes69f53ff54a86/personalscience-bristler-9c50336/DESCRIPTION’ ... OK
-    ## * preparing ‘bristler’:
-    ## * checking DESCRIPTION meta-information ... OK
-    ## * checking for LF line-endings in source and make files and shell scripts
-    ## * checking for empty or unneeded directories
-    ## * building ‘bristler_0.1.2.tar.gz’
-
-``` r
 library(tidyverse)
 
 
@@ -49,7 +39,8 @@ treemap::treemap(dtf=., index = c("genus","species"),
 
 ## 16S Samples
 
-Make a dataframe of all uBiome samples (genus level only). Requires [some special packages](https://github.com/richardsprague/actino).
+Make a dataframe of all uBiome samples (genus level only). Requires
+[some special packages](https://github.com/richardsprague/actino).
 
 ``` r
 library(actino)

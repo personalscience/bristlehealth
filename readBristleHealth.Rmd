@@ -1,7 +1,7 @@
 ---
 title: "Read Bristle Health Raw Data"
 author: "Richard Sprague"
-date: "9/2/2022"
+date: "9/20/2022"
 output:
   github_document: default
   html_document: default
@@ -13,7 +13,7 @@ The oral microbiome testing company, Bristle Health, gives me a web page table o
 
 The data is kept in a format with columns for `genus`, `species`, and `relative abundance`. That's easy to read straight from Excel format.
 
-```{r, message = FALSE}
+```{r, message = FALSE, warning = FALSE}
 if(!require("bristler")) devtools::install_github("personalscience/bristler")
 library(tidyverse)
 

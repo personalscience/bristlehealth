@@ -1,7 +1,7 @@
 Bristle and Phyloseq
 ================
 Richard Sprague
-2022-09-05
+2022-09-20
 
 ## Introduction
 
@@ -40,13 +40,11 @@ columns are okay but will be ignored):
 - “ssr”: sequencing revision, aka sample ID number (e.g. 42578). Your
   column probably repeats many SSRs.
 
-- “tax_name”: (e.g. “Bifidobacterium”).
-
-- “count” : reads for that taxa at that SSR (e.g. 2137)
+- “tax_name”: (e.g. “Streptococcus”).
 
 - Mapping file: a dataframe that contains: “ssr”: exact same SSRs as
   experiment dataframe above attributes columns: as many as you like.
-  (e.g. “yogurteater”, “geo”, “kefireater”, “gender”)
+  (e.g. “dentist_before”, “geo”, “kefireater”, “gender”)
 
 ``` r
 bristle_data$ssr <- 1234
@@ -149,6 +147,21 @@ phyloseq::plot_ordination(all_samples, all_samples.ord,
 ```
 
 ![](bristle_phyloseq_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+## Summary
+
+Once you’ve built a Phyloseq object, you can use the entire power of
+Phyloseq. See the [Phyloseq
+Vignettes](https://bioconductor.org/packages/release/bioc/vignettes/phyloseq/inst/doc/phyloseq-analysis.html)
+for plenty of examples.
+
+Note that there are several limitations, because currently the Phyloseq
+object is created from the limited data presented on the Bristle web
+site. Most importantly, your object will only have genus and species
+information. Partly because of this, there is no taxonomy tree
+information either, which limits some important functionality, notably
+the ability to do Unifrac. But most of the other functionality is there,
+so play away!
 
 [^1]: Read this beginner’s guide:
     <http://joey711.github.io/phyloseq-demo/phyloseq-demo.html>
