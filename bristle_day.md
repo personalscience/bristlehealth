@@ -1,7 +1,7 @@
 Morning vs Night
 ================
 Richard Sprague
-9/2/2022
+9/26/2022
 
 What happens to my mouth microbiome throughout the day?
 
@@ -24,6 +24,10 @@ baseline_sample %>% treemap::treemap(dtf=., index = c("genus","species"),
 ![](bristle_day_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 ## Morning
+
+After collecting my baseline in June, I ordered more kits and tested
+myself again in August, this time twice on the same day. How much does
+the microbiome shift?
 
 This sample was collected a few minutes after waking up. I usually wear
 an orthodontic retainer, so this is my oral microbiome *with* the
