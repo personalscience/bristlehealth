@@ -1,7 +1,7 @@
 ---
 title: "Morning vs Night"
 author: "Richard Sprague"
-date: "9/2/2022"
+date: "9/26/2022"
 output:
   github_document: default
   html_document: default
@@ -33,6 +33,8 @@ baseline_sample %>% treemap::treemap(dtf=., index = c("genus","species"),
 
 
 ## Morning
+
+After collecting my baseline in June, I ordered more kits and tested myself again in August, this time twice on the same day. How much does the microbiome shift?
 
 This sample was collected a few minutes after waking up. I usually wear an orthodontic retainer, so this is my oral microbiome *with* the retainer.
 
