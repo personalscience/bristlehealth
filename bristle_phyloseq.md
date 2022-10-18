@@ -1,7 +1,7 @@
 Bristle and Phyloseq
 ================
 Richard Sprague
-2022-09-05
+2022-10-18
 
 ## Introduction
 
@@ -80,7 +80,7 @@ estimate_richness(e.ps, measures = c("InvSimpson","Shannon"))
 ```
 
     ##    Shannon InvSimpson
-    ## 1 2.249027   5.802677
+    ## 1 2.249019   5.802639
 
 ``` r
 plot_richness(e.ps, measures = c("InvSimpson","Shannon"))
@@ -125,10 +125,10 @@ psmr::unique_taxa(am.ps, pm.ps) %>%
 |--------------:|:------------------------|
 |         30.37 | g\_\_Megasphaera        |
 |          7.76 | g\_\_Centipeda          |
-|          6.22 | g\_\_Parvimonas         |
+|          6.23 | g\_\_Parvimonas         |
 |          3.04 | g\_\_Dialister          |
-|          1.55 | g\_\_Solobacterium      |
 |          1.55 | g\_\_Propionibacterium  |
+|          1.55 | g\_\_Solobacterium      |
 |          1.51 | g\_\_Peptostreptococcus |
 |          1.20 | g\_\_Bifidobacterium    |
 
